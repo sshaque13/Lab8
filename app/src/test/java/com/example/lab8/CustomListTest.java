@@ -34,12 +34,19 @@ public class CustomListTest {
     }
 
     @Test
-    public void deleteCityTest() {
+    public void deleteCityTest() throws Exception {
         list = MockCityList();
-        list.addCity(new City("Red Deer", "Alberta"));
+        list.addCity(new City("Red Deer", "AB"));
+        list.addCity(new City("Regina", "SK"));
+        list.addCity(new City("Vancouver", "BC"));
         assertTrue(list.hasCity("Red Deer"));
+        assertTrue(list.hasCity("Regina"));
+        assertTrue(list.hasCity("Vancouver"));
         list.deleteCity("Red Deer");
         assertFalse(list.hasCity("Red Deer"));
+        assertTrue(list.hasCity("Regina"));
+        assertTrue(list.hasCity("Vancouver"));
+        assertThrows(Exception.class, () -> list.deleteCity("Red Deer"), "City not in list!");
     }
 
     @Test
@@ -51,5 +58,5 @@ public class CustomListTest {
         list.addCity(new City("Cold Lake", "AB"));
         assertEquals(list.countCities(), 3);
     }
-    
+
 }

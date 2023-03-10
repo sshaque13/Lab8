@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CustomList extends ArrayAdapter<City> {
 
@@ -29,8 +30,8 @@ public class CustomList extends ArrayAdapter<City> {
 
         View view = convertView;
 
-        if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.content, parent,false);
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.content, parent, false);
         }
 
         City city = cities.get(position);
@@ -45,7 +46,7 @@ public class CustomList extends ArrayAdapter<City> {
 
     }
 
-    public int countCities(){
+    public int countCities() {
         return cities.size();
     }
 
@@ -53,11 +54,26 @@ public class CustomList extends ArrayAdapter<City> {
         cities.add(city);
     }
 
-    //public boolean hasCity(String cityName) {
+    public boolean hasCity(String cityName) {
 
-   // }
+        for (int i = 0; i < cities.size(); i++) {
+            if (cityName.equals(cities.get(i).getCityName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void deleteCity(String cityName) throws Exception {
 
+        for (int i = 0; i < cities.size(); i++) {
+            if (cityName.equals(cities.get(i).getCityName())) {
+                cities.remove(i);
+                return;
+            }
+        }
+            throw new Exception("City not in list!");
     }
+
+
 }
